@@ -1,0 +1,171 @@
+---
+import { newsArticles, blogHighlights, selectedArticles } from '../data/site';
+
+interface ArticleCard {
+  category: string;
+  title: string;
+  excerpt: string;
+  image: string;
+  alt: string;
+  href: string;
+}
+
+interface Props {
+  id: string;
+  title: string;
+  description: string;
+  articles: ArticleCard[];
+  columns?: 3 | 4;
+  blogLink?: boolean;
+}
+
+const sections: Props[] = [
+  {
+    id: 'nieuws',
+    title: 'Laatste nieuws',
+    description:
+      'De laatste nieuwsartikelen over wonen, vind je hier. Er is altijd wel iets nieuws te vermelden en wij zoeken de beste berichten op het gebied van wonen voor je uit.',
+    articles: newsArticles,
+    columns: 3,
+  },
+  {
+    id: 'blogs',
+    title: 'Laatste blogs',
+    description:
+      'Onze bloggers hebben een passie voor interieur en delen graag hun inzichten met jou. Hieronder vind je de blogs die wij er deze keer voor je hebben uitgekozen.',
+    articles: blogHighlights,
+    columns: 4,
+    blogLink: true,
+  },
+  {
+    id: 'geselecteerd',
+    title: 'Geselecteerd voor jou',
+    description:
+      'Er is tal van leuk interieur te vinden voor elk hoekje van je kamer. Wij hebben er hieronder al een paar voor je gepresenteerd, waarvan wij denken dat het echte hebbedingetjes zijn.',
+    articles: selectedArticles,
+    columns: 4,
+  },
+];
+---
+
+{
+  sections.map((section, index) => (
+    <section
+      class:list={['features section', index % 2 === 1 && 'features--alt']}
+      id={section.id}
+      aria-labelledby={`${section.id}-title`}
+    >
+      <div class="container">
+        <div class="section-header">
+          <h2 id={`${section.id}-title`}>{section.title}</h2>
+          <p>{section.description}</p>
+          {section.blogLink && (
+            <a href="/blog/" class="features__blog-link">
+              Bekijk het volledige blogoverzicht →
+            </a>
+          )}
+        </div>
+
+        <div class:list={['card-grid', section.columns === 4 ? 'card-grid-4' : 'card-grid-3']}>
+          {section.articles.map((article) => (
+            <article class="article-card">
+              <a href={article.href} class="article-card__link">
+                <div class="article-card__image">
+                  <img src={article.image} alt={article.alt} loading="lazy" />
+                </div>
+                <div class="article-card__body">
+                  <span class="tag">{article.category}</span>
+                  <h3>{article.title}</h3>
+                  {section.id === 'nieuws' && article.excerpt.length > 80 && (
+                    <p class="article-card__excerpt">{article.excerpt}</p>
+                  )}
+                  <span class="article-card__cta">Lees Meer</span>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  ))
+}
+
+<style>
+  .features--alt {
+    background: var(--color-bg-soft);
+  }
+
+  .features__blog-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    transition: color var(--transition);
+  }
+
+  .features__blog-link:hover {
+    color: var(--color-primary);
+  }
+
+  .article-card {
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--shadow);
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+
+  .article-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .article-card__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .article-card__image {
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+  }
+
+  .article-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .article-card:hover .article-card__image img {
+    transform: scale(1.05);
+  }
+
+  .article-card__body {
+    padding: 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .article-card__body h3 {
+    font-size: 1.0625rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .article-card__excerpt {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    flex: 1;
+  }
+
+  .article-card__cta {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+</style>

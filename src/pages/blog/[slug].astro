@@ -1,0 +1,203 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { blogPosts, formatDate } from '../../data/posts';
+
+export function getStaticPaths() {
+  return blogPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const relatedPosts = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
+---
+
+<Layout title={`${post.title} | DaisyWoont.nl`} description={post.excerpt}>
+  <Header />
+  <main id="main" class="post-page">
+    <article class="post">
+      <header class="post__header section">
+        <div class="container post__header-inner">
+          <span class="tag">{post.category}</span>
+          <h1>{post.title}</h1>
+          <div class="post__meta">
+            <time datetime={post.date}>{formatDate(post.date)}</time>
+            <span aria-hidden="true">·</span>
+            <span>Door {post.author}</span>
+          </div>
+        </div>
+      </header>
+
+      <div class="post__featured">
+        <div class="container">
+          <img src={post.image} alt={post.imageAlt} loading="eager" />
+        </div>
+      </div>
+
+      <div class="post__content section">
+        <div class="container">
+          {
+            post.content.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))
+          }
+
+          <aside class="post__author">
+            <h2>Over de auteur</h2>
+            <p>
+              <strong>{post.author}</strong> — Ik ben Lisa, een gepassioneerde schrijver met een brede
+              interesse in diverse onderwerpen. In mijn werk combineer ik creativiteit met onderzoek om
+              artikelen te maken die zowel informatief als inspirerend zijn.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </article>
+
+    <section class="related section" aria-labelledby="related-title">
+      <div class="container">
+        <h2 id="related-title">Nieuwe blogs</h2>
+        <div class="related__grid">
+          {
+            relatedPosts.map((related) => (
+              <article class="related-card">
+                <a href={`/blog/${related.slug}/`}>
+                  <div class="related-card__image">
+                    <img src={related.image} alt={related.imageAlt} loading="lazy" />
+                  </div>
+                  <div class="related-card__body">
+                    <h3>{related.title}</h3>
+                    <time datetime={related.date}>{formatDate(related.date)}</time>
+                    <span>Lees verder →</span>
+                  </div>
+                </a>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .post__header {
+    background: var(--color-bg-soft);
+    padding-bottom: 1.5rem;
+  }
+
+  .post__header-inner {
+    max-width: 760px;
+  }
+
+  .post__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--color-muted);
+  }
+
+  .post__featured img {
+    width: 100%;
+    max-height: 480px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  .post__content .container {
+    max-width: 720px;
+  }
+
+  .post__content p {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+
+  .post__author {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    background: var(--color-bg-soft);
+    border-radius: var(--radius);
+    border-left: 4px solid var(--color-secondary);
+  }
+
+  .post__author h2 {
+    font-size: 1.125rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .post__author p {
+    font-size: 0.9375rem !important;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  .related {
+    background: var(--color-bg-soft);
+  }
+
+  .related__grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .related-card {
+    background: #fff;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+
+  .related-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .related-card__image {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+
+  .related-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .related-card__body {
+    padding: 1.25rem;
+  }
+
+  .related-card__body h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .related-card__body time {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--color-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .related-card__body span {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  @media (min-width: 768px) {
+    .related__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,90 @@
+---
+import { blogPosts } from '../data/posts';
+---
+
+<section class="cta section" id="over-ons" aria-labelledby="cta-title">
+  <div class="container cta__grid">
+    <div class="cta__content">
+      <h2 id="cta-title">Beter wonen met Daisy</h2>
+      <p>
+        Bij ons van DaisyWoont.nl kun je inspiratie opdoen voor jouw interieur. Of je nu op zoek bent
+        naar uitbreiding van je bestaande meubilair, dan wel vanaf nul begint bij je nieuwe woning.
+        Wij helpen jou bij het uitkiezen van hip interieur, zodat jij je eigen comfortabele plekje
+        kunt realiseren.
+      </p>
+      <div class="cta__actions">
+        <a href="/blog/" class="btn btn-primary">Ontdek onze blogs</a>
+        <a href="/contact/" class="btn btn-outline">Neem contact op</a>
+      </div>
+
+      <ul class="cta__links">
+        {
+          blogPosts.slice(0, 5).map((post) => (
+            <li>
+              <a href={`/blog/${post.slug}/`}>{post.title}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    background: var(--color-primary);
+    color: #fff;
+  }
+
+  .cta h2 {
+    color: #fff;
+  }
+
+  .cta__content p {
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 600px;
+  }
+
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .cta .btn-primary {
+    background: var(--color-secondary);
+    color: var(--color-primary);
+  }
+
+  .cta .btn-outline {
+    border-color: #fff;
+    color: #fff;
+  }
+
+  .cta .btn-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .cta__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .cta__links a {
+    display: block;
+    padding: 0.625rem 0;
+    font-size: 0.875rem;
+    color: var(--color-secondary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    transition: color var(--transition), padding-left var(--transition);
+  }
+
+  .cta__links a:hover {
+    color: #fff;
+    padding-left: 0.5rem;
+  }
+</style>

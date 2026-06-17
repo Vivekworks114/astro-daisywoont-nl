@@ -1,0 +1,112 @@
+---
+---
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <a href="/" aria-label="DaisyWoont.nl home">
+        <img src="/images/Frame-233.svg" alt="DaisyWoont.nl logo" width="103" height="33" />
+      </a>
+      <p>
+        Het team van DaisyWoont.nl deelt hun inzichten op het gebied van wonen met jou. Doe je
+        inspiratie op door de top 10 lijstjes per type interieur te bekijken.
+      </p>
+    </div>
+
+    <div class="footer__col">
+      <h3>Informatie</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog/">Blogs</a></li>
+        <li><a href="/#over-ons">Over ons</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h3>Categorieën</h3>
+      <ul>
+        <li><a href="/#services">Meubilair</a></li>
+        <li><a href="/#services">Verwarmers &amp; Koelers</a></li>
+        <li><a href="/#services">Wassen &amp; Drogen</a></li>
+        <li><a href="/#services">Badkamer</a></li>
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h3>Andere Daisy sites</h3>
+      <ul>
+        <li><a href="https://lifestyledaisy.nl" target="_blank" rel="noopener noreferrer">LifestyleDaisy.nl</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container">
+      <p>&copy; 2026 All rights reserved — DaisyWoont.nl</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-primary);
+    color: rgba(255, 255, 255, 0.85);
+    padding-top: 3rem;
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .footer__brand p {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    max-width: 320px;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .footer__col h3 {
+    color: #fff;
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer__col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .footer__col a {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color var(--transition);
+  }
+
+  .footer__col a:hover {
+    color: var(--color-secondary);
+  }
+
+  .footer__bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-block: 1.25rem;
+  }
+
+  .footer__bottom p {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+  }
+
+  @media (min-width: 640px) {
+    .footer__grid {
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+  }
+</style>

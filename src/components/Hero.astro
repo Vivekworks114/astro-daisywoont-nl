@@ -1,0 +1,101 @@
+---
+---
+
+<section class="hero section" aria-labelledby="hero-title">
+  <div class="hero__bg" aria-hidden="true">
+    <img src="/images/Group-94.jpg" alt="" loading="eager" />
+  </div>
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <h1 id="hero-title">DaisyWoont reviews</h1>
+      <p>
+        Bij DaisyWoont word jij op je wenken bediend, met de beste producten op het gebied van wonen.
+        Wij schrijven regelmatig reviews over woonartikelen die we uitproberen en geven je zo een eerlijk
+        beeld over welke producten de moeite waard zijn om toe te voegen aan je meubilair!
+      </p>
+      <a href="/blog/" class="btn btn-primary">Bekijk onze blogs</a>
+    </div>
+    <div class="hero__image">
+      <img
+        src="/images/beautiful-talented-young-female-designer-with-blonde-hair-standing-isolated-white-room-holding-finger-her-chin-thinking-concept-her-new-jewelry-collection-having-pleased-joyful-smile-1.png"
+        alt="Interieurontwerper denkt na over nieuwe wooncollectie"
+        width="517"
+        height="727"
+        loading="eager"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(3rem, 8vw, 5rem);
+  }
+
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .hero__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.15;
+  }
+
+  .hero__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .hero__content {
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  .hero__content p {
+    font-size: 1.0625rem;
+    color: var(--color-muted);
+    max-width: 520px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero__image {
+    display: none;
+    animation: fadeUp 0.7s 0.15s ease both;
+  }
+
+  .hero__image img {
+    margin-inline: auto;
+    max-height: 480px;
+    object-fit: contain;
+    filter: drop-shadow(0 16px 32px rgba(10, 10, 10, 0.1));
+  }
+
+  @media (min-width: 768px) {
+    .hero__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero__image {
+      display: block;
+    }
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
