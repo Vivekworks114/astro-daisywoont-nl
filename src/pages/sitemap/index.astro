@@ -1,0 +1,43 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { getAllWpPages } from '../../utils/wp-pages';
+import { getCollection } from 'astro:content';
+
+const pages = getAllWpPages();
+const posts = await getCollection('blog');
+---
+
+<Layout title="Sitemap | DaisyWoont.nl" description="Overzicht van alle pagina's op DaisyWoont.nl">
+  <Header />
+  <main id="main" class="section">
+    <div class="container">
+      <h1>Sitemap</h1>
+      <h2>Pagina's</h2>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/over-ons/">Over ons</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        {pages.map((p) => (
+          <li><a href={`/${p.slug}/`}>{p.title}</a></li>
+        ))}
+      </ul>
+      <h2>Blog artikelen</h2>
+      <ul>
+        {posts.map((post) => (
+          <li><a href={`/blog/${post.id}/`}>{post.data.title}</a></li>
+        ))}
+      </ul>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  h1 { margin-bottom: 1.5rem; }
+  h2 { margin: 2rem 0 1rem; font-size: 1.125rem; }
+  ul { display: grid; gap: 0.35rem; padding-left: 1.25rem; }
+  a { color: var(--color-accent); text-decoration: underline; }
+</style>

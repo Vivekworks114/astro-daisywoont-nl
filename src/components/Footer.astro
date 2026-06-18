@@ -1,4 +1,15 @@
 ---
+import {
+  footerBrand,
+  footerInfo,
+  footerArticles,
+  footerVerwarmers,
+  footerWassen,
+  footerDaisySites,
+  footerSocial,
+} from '../data/footer-links';
+
+const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
@@ -7,43 +18,63 @@
       <a href="/" aria-label="DaisyWoont.nl home">
         <img src="/images/Frame-233.svg" alt="DaisyWoont.nl logo" width="103" height="33" />
       </a>
-      <p>
-        Het team van DaisyWoont.nl deelt hun inzichten op het gebied van wonen met jou. Doe je
-        inspiratie op door de top 10 lijstjes per type interieur te bekijken.
-      </p>
+      <p>{footerBrand.description}</p>
+      <a href="/sitemap/" class="footer__sitemap">Sitemap</a>
+      <div class="footer__social">
+        {footerSocial.map((s) => (
+          <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}>
+            {s.label}
+          </a>
+        ))}
+      </div>
+      <p class="footer__copy">&copy; {year} All rights reserved</p>
     </div>
 
     <div class="footer__col">
       <h3>Informatie</h3>
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/blog/">Blogs</a></li>
-        <li><a href="/over-ons/">Over ons</a></li>
-        <li><a href="/contact/">Contact</a></li>
+        {footerInfo.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
       </ul>
     </div>
 
     <div class="footer__col">
-      <h3>Categorieën</h3>
+      <h3>Andere artikelen</h3>
       <ul>
-        <li><a href="/meubilair/">Meubilair</a></li>
-        <li><a href="/verwarmers-koelers/">Verwarmers &amp; Koelers</a></li>
-        <li><a href="/wassen-drogen/">Wassen &amp; Drogen</a></li>
-        <li><a href="/slaapkamer/">Slaapkamer</a></li>
+        {footerArticles.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h3>Verwarmers &amp; Koelers</h3>
+      <ul>
+        {footerVerwarmers.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="footer__col">
+      <h3>Wassen &amp; Drogen</h3>
+      <ul>
+        {footerWassen.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
       </ul>
     </div>
 
     <div class="footer__col">
       <h3>Andere Daisy sites</h3>
       <ul>
-        <li><a href="https://lifestyledaisy.nl" target="_blank" rel="noopener noreferrer">LifestyleDaisy.nl</a></li>
+        {footerDaisySites.map((item) => (
+          <li>
+            <a href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a>
+          </li>
+        ))}
       </ul>
-    </div>
-  </div>
-
-  <div class="footer__bottom">
-    <div class="container">
-      <p>&copy; 2026 All rights reserved — DaisyWoont.nl</p>
     </div>
   </div>
 </footer>
@@ -52,20 +83,56 @@
   .footer {
     background: var(--color-primary);
     color: rgba(255, 255, 255, 0.85);
-    padding-top: 3rem;
+    padding: 3rem 0 2rem;
   }
 
   .footer__grid {
     display: grid;
     gap: 2rem;
-    padding-bottom: 2rem;
+    grid-template-columns: 1fr;
   }
 
   .footer__brand p {
     margin-top: 1rem;
     font-size: 0.875rem;
-    max-width: 320px;
+    max-width: 340px;
     color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+  }
+
+  .footer__sitemap {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: underline;
+  }
+
+  .footer__social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .footer__social a {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.85);
+    transition: background var(--transition), color var(--transition);
+  }
+
+  .footer__social a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-secondary);
+  }
+
+  .footer__copy {
+    margin-top: 1rem !important;
+    font-size: 0.8125rem !important;
+    color: rgba(255, 255, 255, 0.5) !important;
   }
 
   .footer__col h3 {
@@ -79,12 +146,13 @@
     margin: 0;
     padding: 0;
     display: grid;
-    gap: 0.5rem;
+    gap: 0.45rem;
   }
 
   .footer__col a {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     color: rgba(255, 255, 255, 0.7);
+    line-height: 1.4;
     transition: color var(--transition);
   }
 
@@ -92,21 +160,15 @@
     color: var(--color-secondary);
   }
 
-  .footer__bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-block: 1.25rem;
-  }
-
-  .footer__bottom p {
-    margin: 0;
-    font-size: 0.8125rem;
-    color: rgba(255, 255, 255, 0.5);
-    text-align: center;
-  }
-
-  @media (min-width: 640px) {
+  @media (min-width: 768px) {
     .footer__grid {
-      grid-template-columns: 2fr 1fr 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .footer__grid {
+      grid-template-columns: 1.4fr repeat(5, 1fr);
     }
   }
 </style>

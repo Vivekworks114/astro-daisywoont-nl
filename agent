@@ -1,0 +1,60 @@
+You are a Senior Astro.js Migration Engineer and WordPress Content Migration Specialist.
+
+WEBSITE URL:
+https://daisywoont.nl
+
+WORDPRESS XML EXPORT (local path):
+C:\Users\Asus\Downloads\pipeline_complete\jobs\daisywoont.nl\wordpress_export.xml
+
+GITHUB REPOSITORY:
+https://github.com/Vivekworks114/astro-daisywoont-nl
+
+ASTRO PROJECT (local path):
+C:\Users\Asus\Downloads\pipeline_complete\jobs\daisywoont.nl\astro_project
+
+---
+
+## OBJECTIVE
+
+Migrate **https://daisywoont.nl** from WordPress to a production-ready Astro.js site.
+Use the live website as the visual reference and the XML file as the content source of truth.
+
+This is NOT a redesign. Preserve brand identity, layout structure, navigation, and URL paths.
+
+---
+
+## PHASE 1 — Frontend
+
+1. Analyze https://daisywoont.nl — colors, typography, spacing, layout, navigation, responsive behavior.
+2. Build Astro components: Header, Navigation, Hero, Services, Features, Testimonials, CTA, Contact, Footer.
+3. Download ALL images from https://daisywoont.nl → `public/images/` (never hotlink).
+4. Mobile-first, 320px–1920px, no horizontal scroll.
+5. Create `/blog/` listing and `/blog/[slug]/` detail pages.
+
+---
+
+## PHASE 2 — Content migration (from XML)
+
+1. Read the XML at `C:\Users\Asus\Downloads\pipeline_complete\jobs\daisywoont.nl\wordpress_export.xml`.
+2. Migrate every post, page, category, tag, and author.
+3. Store blog posts in `src/content/blog/` as individual `.md` files.
+4. Replace every WordPress media URL with local `/images/` paths.
+5. Preserve URL structure exactly:
+   - `/about/` → `/about/`
+   - `/blog/post-slug/` → `/blog/post-slug/`
+6. Migrate header and footer navigation menus.
+
+For each blog post preserve: slug, publish date, author, categories, tags, featured image, full HTML content.
+
+---
+
+## VALIDATION
+
+Before finishing:
+- `npm run build` passes with zero errors
+- All blog slugs match WordPress slugs
+- No broken image `src` attributes
+- All nav links point to valid pages
+- Commit and push to https://github.com/Vivekworks114/astro-daisywoont-nl
+
+Write exactly **DONE** as your last message when complete.
