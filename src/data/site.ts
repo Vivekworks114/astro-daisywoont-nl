@@ -1,3 +1,6 @@
+import navFromWp from './nav-from-wp.json';
+import { normalizeNavHref } from '../utils/format';
+
 export const siteConfig = {
   name: 'DaisyWoont.nl',
   title: 'DaisyWoont.nl | Voor al jouw woontips!',
@@ -6,61 +9,23 @@ export const siteConfig = {
   url: 'https://daisywoont.nl',
 };
 
-export const navItems = [
-  { label: 'Home', href: '/' },
-  {
-    label: 'Slaapkamer',
-    href: '/#services',
-    children: [
-      { label: 'Kledingkast kinderkamer', href: '/#services' },
-      { label: 'Hoogslaper met bureau', href: '/#services' },
-      { label: 'Elektrische bovendeken', href: '/#services' },
-      { label: 'Stapelbed met bureau', href: '/#services' },
-      { label: 'Dekbedovertrek kind', href: '/#services' },
-      { label: '4 Seizoenen dekbed', href: '/#services' },
-      { label: 'Badstof hoeslaken', href: '/#services' },
-      { label: 'Verzwaringsdeken', href: '/#services' },
-      { label: 'Katoenen dekbed', href: '/#services' },
-      { label: 'Matras 180×200', href: '/#services' },
-    ],
-  },
-  {
-    label: 'Meubilair',
-    href: '/#services',
-    children: [
-      { label: 'Kapstok met schoenenrek', href: '/#services' },
-      { label: 'Poef met opbergruimte', href: '/#services' },
-      { label: 'Slaapbank 2 persoons', href: '/#services' },
-      { label: 'Bartafel met krukken', href: '/#services' },
-      { label: 'Hangstoel binnen', href: '/#services' },
-      { label: 'Schoenenrek deur', href: '/#services' },
-      { label: 'Open boekenkast', href: '/#services' },
-      { label: 'Rotan bijzettafel', href: '/#services' },
-      { label: 'Tv meubel hout', href: '/#services' },
-      { label: 'Bijzettafel hout', href: '/#services' },
-    ],
-  },
-  {
-    label: 'Veiligheid',
-    href: '/#services',
-    children: [
-      { label: 'Buitenlamp met bewegingssensor', href: '/#services' },
-      { label: 'Draadloze deurbel met camera', href: '/#services' },
-      { label: 'Diervriendelijke muizenval', href: '/#services' },
-      { label: 'Beveiligingscamera buiten', href: '/#services' },
-      { label: 'Koppelbare rookmelder', href: '/#services' },
-      { label: 'Koolmonoxidemelder', href: '/#services' },
-      { label: 'Elektrische muizenval', href: '/#services' },
-      { label: 'Alarmsysteem', href: '/#services' },
-      { label: 'Hygrometer', href: '/#services' },
-      { label: 'Hittemelder', href: '/#services' },
-      { label: 'Co2 meter', href: '/#services' },
-    ],
-  },
-  { label: 'Blogs', href: '/blog/' },
-  { label: 'Over ons', href: '/#over-ons' },
-  { label: 'Contact', href: '/contact/' },
-];
+type NavChild = { label: string; href: string };
+type NavItem = { label: string; href: string; children?: NavChild[] };
+
+function mapNav(items: typeof navFromWp): NavItem[] {
+  return items.map((item) => ({
+    label: item.label,
+    href: normalizeNavHref(item.href),
+    children: item.children?.map((child) => ({
+      label: child.label,
+      href: normalizeNavHref(child.href),
+    })),
+  }));
+}
+
+export const navItems = mapNav(navFromWp).map((item) =>
+  item.label === 'Blogs' ? { ...item, href: '/blog/' } : item
+);
 
 export const services = [
   { label: 'Meubilair', icon: '/images/icon-park-outline_sofa-1.svg', href: '/#services' },
@@ -116,7 +81,7 @@ export const blogHighlights = [
     excerpt: 'Combineer luxe slaapcomfort met slimme technologie in je slaapkamer.',
     image: '/images/slaapkamer.jpg',
     alt: 'Slaapkamer met boxspring bed',
-    href: '/blog/verhuisstress-maak-er-iets-leuks-van/',
+    href: '/blog/zo-creeer-je-jouw-droominterieur-tips-woontrends-en-stylingadvies/',
   },
   {
     category: 'Verwarmers & Koelers',
@@ -132,7 +97,7 @@ export const blogHighlights = [
     excerpt: 'Houd je was netjes gesorteerd met een praktische dubbele wasmand.',
     image: '/images/wasmand.jpg',
     alt: 'Dubbele wasmand in wasruimte',
-    href: '/blog/verhuisstress-maak-er-iets-leuks-van/',
+    href: '/blog/zo-creeer-je-jouw-droominterieur-tips-woontrends-en-stylingadvies/',
   },
 ];
 
@@ -151,7 +116,7 @@ export const selectedArticles = [
     excerpt: 'Een naadloos geïntegreerde wasmachine voor een strakke keuken of badkamer.',
     image: '/images/wasmachine.jpg',
     alt: 'Ingebouwde wasmachine in keuken',
-    href: '/blog/verhuisstress-maak-er-iets-leuks-van/',
+    href: '/blog/zo-creeer-je-jouw-droominterieur-tips-woontrends-en-stylingadvies/',
   },
   {
     category: 'Meubilair',

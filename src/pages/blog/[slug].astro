@@ -2,55 +2,62 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { blogPosts, formatDate } from '../../data/posts';
+import { getCollection, render } from 'astro:content';
+import { formatDate } from '../../utils/format';
 
-export function getStaticPaths() {
-  return blogPosts.map((post) => ({
-    params: { slug: post.slug },
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
     props: { post },
   }));
 }
 
 const { post } = Astro.props;
-const relatedPosts = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
+const { Content } = await render(post);
+const allPosts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+const relatedPosts = allPosts.filter((p) => p.id !== post.id).slice(0, 3);
+const featuredImage = post.data.featuredImage;
 ---
 
-<Layout title={`${post.title} | DaisyWoont.nl`} description={post.excerpt}>
+<Layout title={`${post.data.title} | DaisyWoont.nl`} description={post.data.description}>
   <Header />
   <main id="main" class="post-page">
     <article class="post">
       <header class="post__header section">
         <div class="container post__header-inner">
-          <span class="tag">{post.category}</span>
-          <h1>{post.title}</h1>
+          {post.data.categories[0] && <span class="tag">{post.data.categories[0]}</span>}
+          <h1>{post.data.title}</h1>
           <div class="post__meta">
-            <time datetime={post.date}>{formatDate(post.date)}</time>
+            <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
             <span aria-hidden="true">·</span>
-            <span>Door {post.author}</span>
+            <span>Door {post.data.author}</span>
           </div>
         </div>
       </header>
 
-      <div class="post__featured">
-        <div class="container">
-          <img src={post.image} alt={post.imageAlt} loading="eager" />
-        </div>
-      </div>
+      {
+        featuredImage && (
+          <div class="post__featured">
+            <div class="container">
+              <img src={featuredImage} alt={post.data.title} loading="eager" />
+            </div>
+          </div>
+        )
+      }
 
       <div class="post__content section">
-        <div class="container">
-          {
-            post.content.map((paragraph) => (
-              <p>{paragraph}</p>
-            ))
-          }
+        <div class="container wp-content">
+          <Content />
 
           <aside class="post__author">
             <h2>Over de auteur</h2>
             <p>
-              <strong>{post.author}</strong> — Ik ben Lisa, een gepassioneerde schrijver met een brede
-              interesse in diverse onderwerpen. In mijn werk combineer ik creativiteit met onderzoek om
-              artikelen te maken die zowel informatief als inspirerend zijn.
+              <strong>{post.data.author}</strong> — Ik ben Lisa, een gepassioneerde schrijver met een
+              brede interesse in diverse onderwerpen. In mijn werk combineer ik creativiteit met
+              onderzoek om artikelen te maken die zowel informatief als inspirerend zijn.
             </p>
           </aside>
         </div>
@@ -64,13 +71,21 @@ const relatedPosts = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
           {
             relatedPosts.map((related) => (
               <article class="related-card">
-                <a href={`/blog/${related.slug}/`}>
-                  <div class="related-card__image">
-                    <img src={related.image} alt={related.imageAlt} loading="lazy" />
-                  </div>
+                <a href={`/blog/${related.id}/`}>
+                  {related.data.featuredImage && (
+                    <div class="related-card__image">
+                      <img
+                        src={related.data.featuredImage}
+                        alt={related.data.title}
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
                   <div class="related-card__body">
-                    <h3>{related.title}</h3>
-                    <time datetime={related.date}>{formatDate(related.date)}</time>
+                    <h3>{related.data.title}</h3>
+                    <time datetime={related.data.pubDate.toISOString()}>
+                      {formatDate(related.data.pubDate)}
+                    </time>
                     <span>Lees verder →</span>
                   </div>
                 </a>
@@ -114,10 +129,24 @@ const relatedPosts = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
     max-width: 720px;
   }
 
-  .post__content p {
+  .wp-content :global(p) {
     font-size: 1.0625rem;
     line-height: 1.75;
     margin-bottom: 1.25rem;
+  }
+
+  .wp-content :global(h2),
+  .wp-content :global(h3) {
+    margin-top: 1.5rem;
+  }
+
+  .wp-content :global(img) {
+    border-radius: var(--radius);
+    margin-block: 1.5rem;
+  }
+
+  .wp-content :global(figure) {
+    margin: 1.5rem 0;
   }
 
   .post__author {

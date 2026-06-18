@@ -2,7 +2,12 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import { blogPosts, formatDate } from '../../data/posts';
+import { getCollection } from 'astro:content';
+import { formatDate } from '../../utils/format';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
 ---
 
 <Layout
@@ -25,17 +30,25 @@ import { blogPosts, formatDate } from '../../data/posts';
       <div class="container">
         <div class="blog-grid">
           {
-            blogPosts.map((post) => (
+            posts.map((post) => (
               <article class="blog-card">
-                <a href={`/blog/${post.slug}/`} class="blog-card__link">
-                  <div class="blog-card__image">
-                    <img src={post.image} alt={post.imageAlt} loading="lazy" />
-                  </div>
+                <a href={`/blog/${post.id}/`} class="blog-card__link">
+                  {post.data.featuredImage && (
+                    <div class="blog-card__image">
+                      <img
+                        src={post.data.featuredImage}
+                        alt={post.data.title}
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
                   <div class="blog-card__body">
-                    <span class="tag">{post.category}</span>
-                    <h2>{post.title}</h2>
-                    <p>{post.excerpt}</p>
-                    <time datetime={post.date}>{formatDate(post.date)}</time>
+                    {post.data.categories[0] && <span class="tag">{post.data.categories[0]}</span>}
+                    <h2>{post.data.title}</h2>
+                    <p>{post.data.description}</p>
+                    <time datetime={post.data.pubDate.toISOString()}>
+                      {formatDate(post.data.pubDate)}
+                    </time>
                     <span class="blog-card__cta">Lees verder →</span>
                   </div>
                 </a>

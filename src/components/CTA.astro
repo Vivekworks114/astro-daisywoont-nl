@@ -1,5 +1,14 @@
 ---
-import { blogPosts } from '../data/posts';
+interface PostLink {
+  slug: string;
+  title: string;
+}
+
+interface Props {
+  posts: PostLink[];
+}
+
+const { posts } = Astro.props;
 ---
 
 <section class="cta section" id="over-ons" aria-labelledby="cta-title">
@@ -19,7 +28,7 @@ import { blogPosts } from '../data/posts';
 
       <ul class="cta__links">
         {
-          blogPosts.slice(0, 5).map((post) => (
+          posts.map((post) => (
             <li>
               <a href={`/blog/${post.slug}/`}>{post.title}</a>
             </li>

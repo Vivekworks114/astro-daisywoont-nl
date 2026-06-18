@@ -1,0 +1,160 @@
+[
+  {
+    "label": "Home",
+    "href": "/"
+  },
+  {
+    "label": "Slaapkamer",
+    "href": "/slaapkamer/",
+    "children": [
+      {
+        "label": "Kledingkast kinderkamer",
+        "href": "https://daisywoont.nl/beste-kledingkast-kinderkamer/"
+      },
+      {
+        "label": "Hoogslaper met bureau",
+        "href": "https://daisywoont.nl/beste-hoogslaper-met-bureau/"
+      },
+      {
+        "label": "Elektrische bovendeken",
+        "href": "https://daisywoont.nl/beste-elektrische-bovendeken/"
+      },
+      {
+        "label": "Stapelbed met bureau",
+        "href": "https://daisywoont.nl/beste-stapelbed-met-bureau/"
+      },
+      {
+        "label": "Dekbedovertrek kind",
+        "href": "https://daisywoont.nl/beste-dekbedovertrek-kind/"
+      },
+      {
+        "label": "4 Seizoenen dekbed",
+        "href": "https://daisywoont.nl/beste-4-seizoenen-dekbed/"
+      },
+      {
+        "label": "Badstof hoeslaken",
+        "href": "https://daisywoont.nl/beste-badstof-hoeslaken/"
+      },
+      {
+        "label": "Verzwaringsdeken",
+        "href": "https://daisywoont.nl/beste-verzwaringsdeken/"
+      },
+      {
+        "label": "Katoenen dekbed",
+        "href": "https://daisywoont.nl/beste-katoenen-dekbed/"
+      },
+      {
+        "label": "Matras 180x200",
+        "href": "https://daisywoont.nl/beste-matras-180x200/"
+      }
+    ]
+  },
+  {
+    "label": "Meubilair",
+    "href": "/meubilair/",
+    "children": [
+      {
+        "label": "Kapstok met schoenenrek",
+        "href": "https://daisywoont.nl/beste-kapstok-met-schoenenrek/"
+      },
+      {
+        "label": "Poef met opbergruimte",
+        "href": "https://daisywoont.nl/beste-poef-met-opbergruimte/"
+      },
+      {
+        "label": "Slaapbank 2 persoons",
+        "href": "https://daisywoont.nl/beste-slaapbank-2-persoons/"
+      },
+      {
+        "label": "Bartafel met krukken",
+        "href": "https://daisywoont.nl/beste-bartafel-met-krukken/"
+      },
+      {
+        "label": "Hangstoel binnen",
+        "href": "https://daisywoont.nl/beste-hangstoel-binnen/"
+      },
+      {
+        "label": "Schoenenrek deur",
+        "href": "https://daisywoont.nl/beste-schoenenrek-deur/"
+      },
+      {
+        "label": "Open boekenkast",
+        "href": "https://daisywoont.nl/beste-open-boekenkast/"
+      },
+      {
+        "label": "Rotan bijzettafel",
+        "href": "https://daisywoont.nl/beste-rotan-bijzettafel/"
+      },
+      {
+        "label": "Tv meubel hout",
+        "href": "https://daisywoont.nl/beste-tv-meubel-hout/"
+      },
+      {
+        "label": "Bijzettafel hout",
+        "href": "https://daisywoont.nl/beste-bijzettafel-hout/"
+      }
+    ]
+  },
+  {
+    "label": "Veiligheid",
+    "href": "/veiligheid/",
+    "children": [
+      {
+        "label": "Buitenlamp met bewegingssensor",
+        "href": "https://daisywoont.nl/beste-buitenlamp-met-bewegingssensor/"
+      },
+      {
+        "label": "Draadloze deurbel met camera",
+        "href": "https://daisywoont.nl/beste-draadloze-deurbel-met-camera/"
+      },
+      {
+        "label": "Diervriendelijke muizenval",
+        "href": "https://daisywoont.nl/beste-diervriendelijke-muizenval/"
+      },
+      {
+        "label": "Beveiligingscamera buiten",
+        "href": "https://daisywoont.nl/beste-beveiligingscamera-buiten/"
+      },
+      {
+        "label": "Koppelbare rookmelder",
+        "href": "https://daisywoont.nl/beste-koppelbare-rookmelder/"
+      },
+      {
+        "label": "Koolmonoxidemelder",
+        "href": "https://daisywoont.nl/beste-koolmonoxidemelder/"
+      },
+      {
+        "label": "Elektrische muizenval",
+        "href": "https://daisywoont.nl/beste-elektrische-muizenval/"
+      },
+      {
+        "label": "Alarmsysteem",
+        "href": "https://daisywoont.nl/beste-alarmsysteem/"
+      },
+      {
+        "label": "Hygrometer",
+        "href": "https://daisywoont.nl/beste-hygrometer/"
+      },
+      {
+        "label": "Hittemelder",
+        "href": "https://daisywoont.nl/beste-hittemelder/"
+      },
+      {
+        "label": "Co2 meter",
+        "href": "https://daisywoont.nl/beste-co2-meter/"
+      }
+    ]
+  },
+  {
+    "label": "Blogs",
+    "href": "/blogs/"
+  },
+  {
+    "label": "Over ons",
+    "href": "/over-ons/"
+  },
+  {
+    "label": "Contact",
+    "href": "/contact/"
+  }
+]

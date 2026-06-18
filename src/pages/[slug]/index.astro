@@ -1,0 +1,51 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import pagesFromWp from '../../data/pages-from-wp.json';
+
+export function getStaticPaths() {
+  const categorySlugs = ['slaapkamer', 'meubilair', 'veiligheid', 'verwarmers-koelers'];
+  return categorySlugs.map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const page = pagesFromWp.find((p) => p.slug === slug);
+if (!page) throw new Error(`Page not found: ${slug}`);
+
+const plainText = page.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+---
+
+<Layout title={`${page.title} | DaisyWoont.nl`} description={plainText.slice(0, 160)}>
+  <Header />
+  <main id="main" class="page-content section">
+    <div class="container wp-content" set:html={page.content} />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .page-content .container {
+    max-width: 800px;
+  }
+
+  .wp-content :global(h1) {
+    margin-bottom: 1.5rem;
+  }
+
+  .wp-content :global(p) {
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    color: var(--color-muted);
+  }
+
+  .wp-content :global(img) {
+    border-radius: var(--radius);
+    margin-block: 2rem;
+  }
+
+  .wp-content :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+</style>
