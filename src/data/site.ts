@@ -23,9 +23,10 @@ function mapNav(items: typeof navFromWp): NavItem[] {
   }));
 }
 
-export const navItems = mapNav(navFromWp).map((item) =>
-  item.label === 'Blogs' ? { ...item, href: '/blog/' } : item
-);
+export const navItems = mapNav(navFromWp).map((item) => {
+  if (item.label === 'Blogs') return { ...item, href: '/blog/' };
+  return item;
+});
 
 export const services = [
   { label: 'Meubilair', icon: '/images/icon-park-outline_sofa-1.svg', href: '/#services' },

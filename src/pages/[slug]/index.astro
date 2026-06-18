@@ -2,15 +2,14 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import pagesFromWp from '../../data/pages-from-wp.json';
+import { getAllWpPages } from '../../utils/wp-pages';
 
 export function getStaticPaths() {
-  const categorySlugs = ['slaapkamer', 'meubilair', 'veiligheid', 'verwarmers-koelers'];
-  return categorySlugs.map((slug) => ({ params: { slug } }));
+  return getAllWpPages().map((page) => ({ params: { slug: page.slug } }));
 }
 
 const { slug } = Astro.params;
-const page = pagesFromWp.find((p) => p.slug === slug);
+const page = getAllWpPages().find((p) => p.slug === slug);
 if (!page) throw new Error(`Page not found: ${slug}`);
 
 const plainText = page.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
@@ -26,7 +25,7 @@ const plainText = page.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').tri
 
 <style>
   .page-content .container {
-    max-width: 800px;
+    max-width: 900px;
   }
 
   .wp-content :global(h1) {
@@ -41,11 +40,19 @@ const plainText = page.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').tri
 
   .wp-content :global(img) {
     border-radius: var(--radius);
-    margin-block: 2rem;
+    margin-block: 1.5rem;
+    max-width: 100%;
+    height: auto;
   }
 
   .wp-content :global(a) {
     color: var(--color-accent);
     text-decoration: underline;
+  }
+
+  .wp-content :global(ul),
+  .wp-content :global(ol) {
+    margin-bottom: 1rem;
+    padding-left: 1.25rem;
   }
 </style>

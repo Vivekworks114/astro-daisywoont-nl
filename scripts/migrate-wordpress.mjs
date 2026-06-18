@@ -73,7 +73,8 @@ function localImagePath(url) {
 function replaceMediaUrls(html) {
   return html
     .replace(/https?:\/\/daisywoont\.nl\/wp-content\/uploads\/[^"'\s)>]+/gi, (url) => localImagePath(url))
-    .replace(/https?:\/\/www\.daisywoont\.nl\/wp-content\/uploads\/[^"'\s)>]+/gi, (url) => localImagePath(url));
+    .replace(/https?:\/\/www\.daisywoont\.nl\/wp-content\/uploads\/[^"'\s)>]+/gi, (url) => localImagePath(url))
+    .replace(/https?:\/\/lifestyledaisy\.nl\/wp-content\/uploads\/[^"'\s)>]+/gi, (url) => localImagePath(url));
 }
 
 function downloadFile(url, dest) {
@@ -214,7 +215,9 @@ async function main() {
   const imageUrls = new Set();
   for (const att of attachments.values()) imageUrls.add(att.url);
   for (const post of posts) {
-    const matches = post.content.match(/https?:\/\/daisywoont\.nl\/wp-content\/uploads\/[^"'\s)>]+/gi) || [];
+    const matches =
+      post.content.match(/https?:\/\/(?:daisywoont|lifestyledaisy)\.nl\/wp-content\/uploads\/[^"'\s)>]+/gi) ||
+      [];
     matches.forEach((u) => imageUrls.add(u));
     if (post.featuredImageUrl) imageUrls.add(post.featuredImageUrl);
   }

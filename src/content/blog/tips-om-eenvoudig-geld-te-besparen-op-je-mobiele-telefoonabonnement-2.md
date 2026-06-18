@@ -8,7 +8,7 @@ featuredImage: ""
 description: "De kosten voor je abonnementen spelen een grote rol in de vaste lasten die je hebt. Denk bijvoorbeeld aan je abonnementen voor je telefoon, internet, tv, krant en streamingsdienst. Als je veel abonnem…"
 ---
 <!-- wp:image {"align":"center","id":1344,"width":711,"height":474,"sizeSlug":"full","linkDestination":"none"} -->
-<figure class="wp-block-image aligncenter size-full is-resized"><img src="https://lifestyledaisy.nl/wp-content/uploads/2023/01/telefoon2.jpg" alt="" class="wp-image-1344" width="711" height="474"/></figure>
+<figure class="wp-block-image aligncenter size-full is-resized"><img src="/images/telefoon2.jpg" alt="" class="wp-image-1344" width="711" height="474"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph -->
