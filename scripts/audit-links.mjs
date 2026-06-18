@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
-const PORT = 4321;
+const PORT = Number(process.env.AUDIT_PORT || 4325);
 const BASE = `http://localhost:${PORT}`;
 
 function walk(dir) {
@@ -59,10 +59,12 @@ function extractLinks(html, pageRoute) {
 async function main() {
   const server = http.createServer((req, res) => {
     let reqPath = decodeURIComponent(req.url.split('?')[0]);
-    if (reqPath.endsWith('/')) reqPath += 'index.html';
+    if (reqPath === '/') reqPath = '/index.html';
+    else if (reqPath.endsWith('/')) reqPath += 'index.html';
     else if (!path.extname(reqPath)) reqPath += '/index.html';
-    const filePath = path.join(DIST, reqPath.replace(/^\//, ''));
-    if (!filePath.startsWith(DIST) || !fs.existsSync(filePath)) {
+
+    const filePath = path.normalize(path.join(DIST, reqPath.replace(/^\//, '')));
+    if (!filePath.startsWith(path.normalize(DIST)) || !fs.existsSync(filePath)) {
       res.statusCode = 404;
       res.end('Not found');
       return;
@@ -108,6 +110,7 @@ async function main() {
       if (!fs.existsSync(imgPath)) broken.push({ link, status: 'missing image' });
       continue;
     }
+    if (link.startsWith('/_astro/')) continue;
     if (!link.startsWith('/')) continue;
     const status = await fetchUrl(`${BASE}${link}`);
     if (status !== 200) broken.push({ link, status });

@@ -59,7 +59,12 @@ function extractContent(html) {
   const pageIdx = html.search(/<div[^>]*data-elementor-type="wp-page"/);
   if (pageIdx === -1) return null;
   const footerIdx = html.search(/data-elementor-type="footer"/);
-  const end = footerIdx > pageIdx ? footerIdx : html.indexOf('</body>', pageIdx);
+  const footerTagIdx = html.indexOf('<footer', pageIdx);
+  let end = html.length;
+  if (footerIdx > pageIdx) end = Math.min(end, footerIdx);
+  if (footerTagIdx > pageIdx) end = Math.min(end, footerTagIdx);
+  const bodyEnd = html.indexOf('</body>', pageIdx);
+  if (bodyEnd > pageIdx) end = Math.min(end, bodyEnd);
   if (end <= pageIdx) return null;
   return html.slice(pageIdx, end).trim();
 }
